@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 
-// Middleware
+// Global Middleware
 import checkAdmin from './middleware/adminCheck'
 import requestLogger from './middleware/requestLogger.middleware'
 
@@ -29,13 +29,6 @@ app.get('/', (req, res) => {
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: "ok" });
 });
-
-
-// app.get('/api/tasks', (req, res) => {
-//   const { page, limit } = req.query;
-
-//   res.status(200).json({ page, limit });
-// });
 
 
 app.listen(PORT, () => {

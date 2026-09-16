@@ -1,31 +1,12 @@
 import { Router } from "express";
+import { getTask, getTaskById, createTask } from '../controllers/task.controller'
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  const { page, limit } = req.query;
+router.get("/", getTask);
 
-  res.status(200).json({
-    page,
-    limit
-  });
-});
+router.get("/:id", getTaskById);
 
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-
-  res.status(200).json({
-    taskId: id
-  });
-});
-
-router.post("/", (req, res) => {
-  const { title, completed } = req.body;
-
-  res.status(201).json({
-    title,
-    completed
-  });
-});
+router.post("/", createTask);
 
 export default router;
