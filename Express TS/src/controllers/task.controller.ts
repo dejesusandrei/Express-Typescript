@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import * as taskService from '../services/task.service'
 
-export const getTask = (req: Request, res: Response) => {
-  const tasks = taskService.getTask();
+export const getTask = async (req: Request, res: Response) => {
+  const tasks = await taskService.getTask();
 
   res.status(200).json({ tasks });
 };
 
-export const getTaskById = (req: Request, res: Response) => {
+export const getTaskById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   if (typeof id !== "string") {
@@ -15,13 +15,14 @@ export const getTaskById = (req: Request, res: Response) => {
     return;
   }
 
-  const task = taskService.getTasksById(id);
+  const task = await taskService.getTasksById(id);
   res.status(200).json({ task });
 };
 
-export const createTask = (req: Request, res: Response) => {
+export const createTask = async (req: Request, res: Response) => {
   const { title, completed } = req.body;
-  const task = taskService.createTask({ title, completed });
+  
+  const task = await taskService.createTask({ title, completed });
 
   res.status(201).json({ task });
 };

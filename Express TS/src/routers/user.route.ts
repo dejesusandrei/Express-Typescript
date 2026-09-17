@@ -3,6 +3,7 @@ import { createUser, getUsers, getUserById } from '../controllers/user.controlle
 
 // Middleware
 import { validate } from "../middleware/validate.js";
+import { asyncHandler } from "../middleware/asyncHandler.js";
 
 // Schema
 import { CreateUserSchema } from "../schema/user.schema.js";
@@ -10,10 +11,10 @@ import { CreateUserSchema } from "../schema/user.schema.js";
 const router = Router();
 
 // GET
-router.get('/', getUsers);
-router.get('/:id', getUserById);
+router.get('/', asyncHandler(getUsers));
+router.get('/:id', asyncHandler(getUserById));
 
 // POST
-router.post('/', validate(CreateUserSchema), createUser);
+router.post('/', validate(CreateUserSchema), asyncHandler(createUser));
 
 export default router;

@@ -3,21 +3,21 @@ import type { User } from '../types/User'
 import { type CreateUserInput } from '../schema/user.schema'
 import { AppError } from "../errors/AppError.js";
 
-export const getUsers = (): User[] => {
-  return userRepository.findAll();
+export const getUsers = async (): Promise<User[]> => {
+  return await userRepository.findAll();
 };
 
-export const getUserById = (id: string): User | undefined => {
-  const user = userRepository.findById(id);
+export const getUserById = async (id: string): Promise<User> => {
+  const user = await userRepository.findById(id);
 
   if(!user){
     throw new AppError("User not found", 404);
   }
 
-  return user;
+  return await user;
 };
 
-export const createUser = (data: CreateUserInput): User => {
+export const createUser = async (data: CreateUserInput): Promise<User> => {
   const { name, email } = data;
 
   const user: User = {
@@ -26,5 +26,5 @@ export const createUser = (data: CreateUserInput): User => {
     email
   };
 
-  return userRepository.create(user);
+  return await userRepository.create(user);
 }
