@@ -18,7 +18,7 @@ export const getTaskById = (req: Request, res: Response) => {
   const task = taskService.getTasksById(id);
 
   if (!task) {
-    res.status(404).json({message: "User not found"});
+    res.status(404).json({message: "Task not found"});
     return;
   }
 

@@ -1,13 +1,12 @@
+import * as userRepository from '../repositories/user.repository'
 import type { User } from '../types/User'
 
-const users: User[] = [];
-
-export const getUsers = () => {
-  return users;
+export const getUsers = (): User[] => {
+  return userRepository.findAll();
 };
 
-export const getUserById = (id: string) => {
-  return users.find(user => user.id === id);
+export const getUserById = (id: string): User | undefined => {
+  return userRepository.findById(id);
 };
 
 export const createUser = (name: string, email: string) => {
@@ -17,6 +16,5 @@ export const createUser = (name: string, email: string) => {
     email
   };
 
-  users.push(user);
-  return user;
+  return userRepository.create(user);
 }

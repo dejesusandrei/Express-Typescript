@@ -1,13 +1,12 @@
 import type { Task } from '../types/Task'
-
-const tasks: Task[] = [];
+import * as taskRepository from '../repositories/task.repository'
 
 export const getTask = () => {
-  return tasks;
+  return taskRepository.findAll();
 };
 
 export const getTasksById = (id: string) => {
-  return tasks.find(task => task.id === id);
+  return taskRepository.findById(id);
 };
 
 export const createTask = (title: string, completed: boolean) => {
@@ -17,6 +16,5 @@ export const createTask = (title: string, completed: boolean) => {
     completed
   };
 
-  tasks.push(task);
-  return task;
+  return taskRepository.create(task);
 }
