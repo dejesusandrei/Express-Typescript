@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as taskService from '../service/task.service'
+import * as taskService from '../services/task.service'
 
 export const getTask = (req: Request, res: Response) => {
   const tasks = taskService.getTask();
@@ -27,7 +27,7 @@ export const getTaskById = (req: Request, res: Response) => {
 
 export const createTask = (req: Request, res: Response) => {
   const { title, completed } = req.body;
-  const task = taskService.createTask(title, completed);
+  const task = taskService.createTask({ title, completed });
 
   res.status(201).json({ task });
 };

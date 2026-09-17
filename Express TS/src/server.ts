@@ -3,7 +3,7 @@ import express from "express";
 
 // Global Middleware
 import checkAdmin from './middleware/adminCheck'
-import requestLogger from './middleware/requestLogger.middleware'
+import requestLogger from './middleware/requestLogger'
 
 
 // Routers

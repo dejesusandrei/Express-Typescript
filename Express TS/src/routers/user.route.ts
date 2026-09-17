@@ -1,12 +1,19 @@
 import { Router } from "express";
-import { createUser, getUser, getUserById } from '../controllers/user.controller'
+import { createUser, getUsers, getUserById } from '../controllers/user.controller'
+
+// Middleware
+import { validate } from "../middleware/validate.js";
+
+// Schema
+import { CreateUserSchema } from "../schema/user.schema.js";
 
 const router = Router();
 
-router.get('/', getUser);
-
+// GET
+router.get('/', getUsers);
 router.get('/:id', getUserById);
 
-router.post('/', createUser);
+// POST
+router.post('/', validate(CreateUserSchema), createUser);
 
 export default router;

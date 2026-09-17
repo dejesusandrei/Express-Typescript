@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import * as userService from '../service/user.service'
+import * as userService from '../services/user.service'
 
-export const getUser = (req: Request, res: Response) => {
+export const getUsers = (req: Request, res: Response) => {
   const users = userService.getUsers();
 
   res.status(200).json({ users });
@@ -27,7 +27,7 @@ export const getUserById = (req: Request, res: Response) => {
 
 export const createUser = (req: Request, res: Response) => {
   const { name, email } = req.body;
-  const user = userService.createUser(name, email);
+  const user = userService.createUser({ name, email });
 
   res.status(201).json({ user });
 };
