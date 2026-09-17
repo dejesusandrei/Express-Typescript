@@ -16,17 +16,13 @@ export const getUserById = (req: Request, res: Response) => {
   }
 
   const user = userService.getUserById(id);
-
-  if (!user) {
-    res.status(404).json({message: "User not found"});
-    return;
-  }
-
   res.status(200).json({ user });
 };
 
 export const createUser = (req: Request, res: Response) => {
   const { name, email } = req.body;
+
+  // Need naka destructing since data ang pinapasa sa service
   const user = userService.createUser({ name, email });
 
   res.status(201).json({ user });

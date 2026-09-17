@@ -2,35 +2,62 @@ import "dotenv/config";
 import express from "express";
 
 // Global Middleware
-import checkAdmin from './middleware/adminCheck'
-import requestLogger from './middleware/requestLogger'
-
+import requestLogger from "./middleware/requestLogger.js";
 
 // Routers
-import userRouter from "./routers/user.route";
-import taskRoute from "./routers/task.route";
+import userRouter from "./routers/user.route.js";
+import taskRoute from "./routers/task.route.js";
 
+// Error Middleware
+import notFound from "./middleware/notFound.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// =========================
+// Global Middleware
+// =========================
+
 app.use(express.json());
 app.use(requestLogger);
 
-// Route
+// =========================
+// Routes
+// =========================
+
 app.use("/api/users", userRouter);
 app.use("/api/tasks", taskRoute);
 
-app.get('/', (req, res) => {
-  res.status(200).json({ msg: "Hello Express!" });
+app.get("/", (req, res) => {
+  res.status(200).json({
+    msg: "Hello Express!",
+  });
 });
 
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: "ok" });
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+  });
 });
 
+// =========================
+// Error Handling
+// =========================
 
+// 404 handler
+// Runs when no route above matches the request.
+app.use(notFound);
+
+// Global error handler
+// Handles errors thrown from controllers, services, etc.
+app.use(errorHandler);
+
+
+// =========================
+// Start Server
+// =========================
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
